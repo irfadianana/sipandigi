@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Request Tambahan Panduan — SIPANDIGI</title>
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#1e2e53;
+      --card:#0b1220;
+      --muted:#94a3b8;
+      --accent:#6ee7b7;
+      --primary:#60a5fa;
+      --glass: rgba(255,255,255,0.04);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      margin:0;
+      background:linear-gradient(180deg,#071126 0%, #071b2b 60%);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    /* ===== Header (Identik index.html) ===== */
+    .header{
+      position:fixed;
+      left:0; top:0; right:0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 28px;
+      background:linear-gradient(90deg, rgba(6,10,15,0.6), rgba(2,6,23,0.3));
+      backdrop-filter: blur(6px);
+      z-index:50;
+      border-bottom:1px solid rgba(255,255,255,0.03);
+    }
+
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{height:44px;width:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--primary));padding:6px}
+    .brand h1{font-size:18px;margin:0;font-weight:700;color:var(--accent);letter-spacing:0.6px}
+    .meta{font-size:13px;color:var(--muted)}
+
+    nav.desktop{display:flex;gap:18px}
+    nav.desktop a{
+      color:var(--muted);
+      text-decoration:none;
+      font-weight:600;
+      padding:6px 10px;
+      border-radius:8px;
+      transition:all .25s
+    }
+    nav.desktop a.active,
+    nav.desktop a:hover{
+      color:white;
+      background:linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    }
+
+    .burger{display:none;background:transparent;border:0;color:var(--muted)}
+
+    /* ===== Dropdown Identik index ===== */
+    .dropdown{position:relative;display:inline-block}
+    .dropbtn{
+      background:transparent;border:none;font-size:16px;padding:12px 16px;
+      cursor:pointer;color:#5191e6;font-weight:600;
+    }
+    .dropbtn:hover{color:#95bae6}
+    .dropdown-content{
+      display:none;position:absolute;background:#376ea1;
+      min-width:200px;border-radius:8px;z-index:99;box-shadow:0 4px 12px rgba(0,0,0,0.1);padding:8px 0;
+    }
+    .dropdown:hover .dropdown-content{display:block}
+    .dropdown-content a{
+      display:block;padding:10px 16px;color:#1f3d63;text-decoration:none;transition:0.2s ease;
+    }
+    .dropdown-content a:hover{background:#f7faff;color:#376ea1}
+
+    /* ===== Page Layout ===== */
+    main{
+      padding-top:92px;
+      max-width:900px;
+      margin:0 auto;
+      padding-left:20px;
+      padding-right:20px;
+    }
+
+    h2{font-size:28px;color:var(--accent);margin-bottom:10px}
+    .description{color:var(--muted);margin-bottom:24px}
+
+    .form-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.03);
+      border-radius:16px;
+      padding:26px;
+      box-shadow:0 10px 30px rgba(2,6,23,0.5);
+    }
+
+    iframe{
+      width:100%;
+      height:900px;
+      border:none;
+      border-radius:12px;
+    }
+
+    @media(max-width:768px){
+      iframe{height:1150px;}
+      nav.desktop{display:none}
+      .burger{display:block}
+    }
+
+    footer{
+      margin-top:36px;padding:28px;text-align:center;color:var(--muted)
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER SAMA PERSIS DENGAN index.html -->
+  <header class="header">
+    <div class="brand">
+      <img src="/assets/logo.png" alt="logo">
+      <div>
+        <h1>SIPANDIGI</h1>
+        <div class="meta">Panduan Digital ASN — DISDIKBUD Banggai</div>
+      </div>
+    </div>
+
+    <nav class="desktop">
+
+      <a href="/index.html">Beranda</a>
+
+      <div class="dropdown">
+        <button class="dropbtn">Google Workspace ▾</button>
+        <div class="dropdown-content">
+          <a href="/pages/google-drive.html">Google Drive</a>
+          <a href="/pages/google-sheets.html">Google Sheets</a>
+          <a href="/pages/google-form-create.html">Google Form (Buat)</a>
+          <a href="/pages/google-form-fill.html">Google Form (Isi)</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="dropbtn">Aplikasi ASN ▾</button>
+        <div class="dropdown-content">
+          <a href="/pages/ekinerja.html">e-Kinerja</a>
+          <a href="/pages/srikandi.html">SRIKANDI</a>
+        </div>
+      </div>
+
+    </nav>
+
+    <button class="burger">☰</button>
+  </header>
+
+  <!-- ===== CONTENT KHUSUS REQUEST FORM ===== -->
+  <main>
+
+    <h2>Request Tambahan Panduan Digital</h2>
+    <p class="description">
+      Ajukan kebutuhan panduan digital baru. Developer SIPANDIGI akan meninjau dan menyesuaikan panduan sesuai kebutuhan Anda.
+    </p>
+
+    <div class="form-card">
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSf562KaBeMQbQKLjoxLzzGUqusZxdzjgWfdZQSVRWDjyXkrfQ/viewform?embedded=true"></iframe>
+    </div>
+
+  </main>
+
+  <footer>
+    &copy; 2025 SIPANDIGI — Dinas Pendidikan dan Kebudayaan Kabupaten Banggai
+  </footer>
+
+  <script>
+    /* burger menu */
+    const burger = document.querySelector('.burger');
+    burger.addEventListener('click', ()=>{
+      const nav = document.querySelector('nav.desktop');
+      if(nav.style.display === 'flex'){ nav.style.display='none'; burger.textContent='☰'; }
+      else{ nav.style.display='flex'; burger.textContent='✕'; }
+    });
+
+    /* highlight active nav */
+    const links = document.querySelectorAll('nav.desktop a');
+    links.forEach(a=>{
+      if(location.pathname.includes(a.getAttribute('href'))) a.classList.add('active');
+    });
+  </script>
+
+</body>
+</html>

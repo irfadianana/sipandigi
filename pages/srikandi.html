@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>SRIKANDI — SIPANDIGI</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    /* ====== HEADER INDEX.HTML (ISOLATED) ====== */
+.hd-header {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 70px;
+  padding: 0 28px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: rgba(7, 17, 38, 0.85);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+
+  z-index: 9999;
+}
+
+.hd-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.hd-left img {
+  width: 40px;
+  height: 40px;
+}
+
+.hd-title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  color: var(--accent);
+}
+
+.hd-nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.hd-nav a {
+  text-decoration: none;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 500;
+  opacity: 0.8;
+  transition: .25s ease;
+}
+
+.hd-nav a:hover {
+  opacity: 1;
+  color: var(--accent);
+}
+
+.hd-active {
+  color: var(--accent) !important;
+  opacity: 1 !important;
+}
+
+/* Mobile */
+@media(max-width: 768px){
+  .hd-header{
+    padding: 0 18px;
+  }
+  .hd-nav{
+    gap: 18px;
+  }
+}
+
+    :root{
+      --bg:#071126;
+      --panel:#0b1220;
+      --muted:#94a3b8;
+      --accent:#7FB3FF;    /* biru pastel */
+      --accent-2:#FFE9A8;  /* kuning pastel */
+      --card: rgba(255,255,255,0.03);
+      --glass: rgba(255,255,255,0.02);
+      --text:#e6eef8;
+      --radius:12px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: linear-gradient(180deg,#071126 0%, #071b2b 70%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+    }
+    .container{
+      max-width:1200px;
+      margin:92px auto 48px; /* leave room for fixed header */
+      padding: 0 20px;
+    }
+
+    .breadcrumb{color:var(--muted); font-size:13px; margin-bottom:12px}
+    .page-title{font-size:28px; margin-bottom:18px; color:var(--accent)}
+
+    /* Layout dasar */
+.page-title {
+  color: #ffffff;
+  font-size: 28px;
+  margin-top:10px;
+  font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+    /* Layout: big player then list */
+    .playlist-wrap{
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:18px;
+      align-items:start;
+    }
+
+        /* ===== DROPDOWN MENU ===== */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  padding: 12px 16px;
+  cursor: pointer;
+  color: #5191e6; /* biru pastel gelap */
+  font-weight: 600;
+}
+
+.dropbtn:hover {
+  color: #95bae6;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: #376ea1;
+  min-width: 200px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 99;
+  padding: 8px 0;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px 16px;
+  color: #1f3d63;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.dropdown-content a:hover {
+  background: #f7faff;
+  color: #376ea1;
+}
+
+/* Tampilkan dropdown saat hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+    /* Left: info (cards) above video when small screens */
+    .info-grid{
+      display:grid;
+      gap:18px;
+      grid-template-columns: 1fr;
+      margin-bottom:18px;
+    }
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:18px;
+      border:1px solid var(--glass);
+      box-shadow:0 8px 24px rgba(0,0,0,0.35);
+    }
+    .card h3{margin:0;color:#f1f9ff}
+    .card p{color:var(--muted); margin:0; font-size:14px}
+    .card ul{margin:8px 0 0 18px; color:var(--muted); font-size:14px}
+
+    /* Player container */
+    .player-area{
+      background:transparent;
+    }
+    .player-box {
+      width:100%;
+      aspect-ratio: 16/9; /* keeps proper ratio */
+      background:#000;
+      border-radius:10px;
+      overflow:hidden;
+      box-shadow:0 20px 40px rgba(0,0,0,0.6);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    /* Right: playlist list */
+    .playlist-list{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      position:relative;
+    }
+    .pl-item{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      background:var(--card);
+      padding:10px;
+      border-radius:10px;
+      cursor:pointer;
+      border-left:4px solid transparent;
+      transition:all .22s ease;
+    }
+    .pl-item:hover{ transform:translateY(-4px); box-shadow:0 14px 30px rgba(0,0,0,0.4) }
+    .pl-item.active{ border-left-color: var(--accent); transform:translateY(-6px); box-shadow:0 18px 40px rgba(0,0,0,0.45) }
+
+    .pl-thumb{
+      width:120px; height:68px; flex-shrink:0; border-radius:6px; overflow:hidden; background:#111;
+    }
+    .pl-thumb img{width:100%; height:100%; object-fit:cover; display:block}
+    .pl-meta{flex:1; min-width:0}
+    .pl-title{font-size:14px; margin:0 0 6px 0; color:var(--text); line-height:1.2; font-weight:600}
+    .pl-sub{font-size:12px; color:var(--muted); margin:0}
+
+    /* "View all" button for mobile */
+    .mobile-show-list{ display:none; margin-top:12px }
+
+    /* Responsive */
+    @media(max-width:980px){
+      .playlist-wrap{ grid-template-columns: 1fr; }
+      .playlist-list{ order:2; display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px }
+      .pl-item{ flex-direction:column; align-items:flex-start; padding:10px }
+      .pl-thumb{ width:100%; height:100px }
+      .pl-meta{ width:100% }
+      .mobile-show-list{ display:block }
+    }
+
+    footer{margin-top:36px; text-align:center; color:var(--muted); padding-bottom:36px}
+  
+    /* ====== HEADER SRIKANDI (AMAN, TIDAK TABRAKAN DENGAN STYLE LAIN) ====== */
+.sk-header {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 70px;
+  padding: 0 24px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: rgba(7, 17, 38, 0.75);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+
+  z-index: 9999;
+}
+
+.sk-header .sk-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sk-header .sk-logo img {
+  width: 38px;
+  height: 38px;
+}
+
+.sk-header .sk-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.sk-header-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.sk-header-nav a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 14px;
+  opacity: .75;
+  transition: .25s;
+}
+
+.sk-header-nav a:hover {
+  opacity: 1;
+  color: var(--accent);
+}
+
+  
+  </style>
+</head>
+<body>
+<header class="header">
+  <div class="brand">
+    <img src="/assets/logo.png" alt="SIPANDIGI logo">
+    <div>
+      <div style="font-weight:700">SIPANDIGI</div>
+      <div class="meta" style="font-size:13px">Panduan Digital ASN</div>
+    </div>
+  </div>
+    <nav class="desktop" aria-label="Main navigation">
+
+      <a href="/index.html" class="nav-main">Beranda</a>
+
+      <div class="dropdown">
+        <button class="dropbtn">Google Workspace ▾</button>
+        <div class="dropdown-content">
+          <a href="/pages/google-drive.html">Google Drive</a>
+          <a href="/pages/google-sheets.html">Google Sheets</a>
+          <a href="/pages/google-form-create.html">Google Form (Buat)</a>
+          <a href="/pages/google-form-fill.html">Google Form (Isi)</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="dropbtn">Aplikasi ASN ▾</button>
+        <div class="dropdown-content">
+          <a href="/pages/ekinerja.html">e-Kinerja</a>
+          <a href="/pages/srikandi.html">SRIKANDI</a>
+        </div>
+      </div>
+
+    </nav>
+</header>
+
+
+
+  <!-- assume your fixed header sits above -->
+  <div class="container">
+
+    <div class="breadcrumb"><a href="/index.html" style="color:var(--muted);text-decoration:none">Beranda</a> / SRIKANDI</div>
+    <div class="page-title">Panduan Aplikasi SRIKANDI</div>
+
+    <div class="playlist-wrap">
+
+      <!-- LEFT: info cards + player placeholder -->
+      <div>
+        <div class="info-grid">
+          <div class="card">
+            <h3>Tentang Playlist</h3>
+            <p>Playlist ini berisi tutorial SRIKANDI untuk pengelolaan surat & kearsipan elektronik. Klik salah satu video di sisi kanan untuk menonton.</p>
+          </div>
+
+          <div class="card">
+            <h3>Catatan</h3>
+            <ul>
+              <li>Setiap video mengambil sumber resmi.</li>
+              <li>Gunakan fitur full-screen pada player untuk tampilan terbaik.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- PLAYER -->
+        <div class="player-area">
+          <div id="player" class="player-box" aria-label="YouTube player"></div>
+        </div>
+      </div>
+
+      <!-- RIGHT: playlist items -->
+      <aside>
+        <div class="playlist-list" id="playlistList" aria-live="polite">
+          <!-- items akan diisi otomatis oleh JS -->
+        </div>
+
+        <div class="mobile-show-list" style="text-align:center">
+          <small style="color:var(--muted)">Geser untuk melihat daftar video</small>
+        </div>
+      </aside>
+
+    </div>
+
+    <footer>© 2025 SIPANDIGI</footer>
+  </div>
+
+  <!-- YouTube IFrame API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <script>
+  // ====== CONFIG: ganti playlistId di sini jika perlu ======
+  const PLAYLIST_ID = 'PLSH_NocHLxc1X6o4aL5gmQxFmvQn3E9wB';
+
+  // Helper: build thumbnail url
+  const thumbFor = id => `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+
+  let player;
+  let videoIds = []; // will hold playlist video ids
+
+  // Called by YouTube API when ready
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+      height: '100%',
+      width: '100%',
+      playerVars: {
+        listType: 'playlist',
+        list: PLAYLIST_ID,
+        autoplay: 0,
+        rel: 0,
+        modestbranding: 1,
+        controls: 1
+      },
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
+  }
+
+  function onPlayerReady(event) {
+    // Sometimes getPlaylist returns empty immediately; retry quickly until available
+    const fetchPlaylistOnce = () => {
+      try {
+        const list = player.getPlaylist();
+        if (Array.isArray(list) && list.length > 0) {
+          videoIds = list.slice(); // clone
+          buildPlaylistUI(videoIds);
+        } else {
+          // retry a few times
+          setTimeout(fetchPlaylistOnce, 250);
+        }
+      } catch (e) {
+        setTimeout(fetchPlaylistOnce, 250);
+      }
+    };
+    fetchPlaylistOnce();
+  }
+
+  function onPlayerStateChange(e) {
+    // optional: update active highlight based on current video
+    const currentUrl = player.getVideoUrl ? player.getVideoUrl() : '';
+    if (!currentUrl) return;
+    const params = new URLSearchParams(currentUrl.split('?')[1] || '');
+    const v = params.get('v');
+    updateActiveItem(v);
+  }
+
+  // Build playlist UI using oEmbed for titles (no API key)
+  async function buildPlaylistUI(ids){
+    const container = document.getElementById('playlistList');
+    container.innerHTML = '';
+    // create items in order
+    for (let i=0;i<ids.length;i++){
+      const id = ids[i];
+      const item = document.createElement('div');
+      item.className = 'pl-item';
+      item.dataset.videoId = id;
+
+      // thumbnail
+      const thumb = document.createElement('div');
+      thumb.className = 'pl-thumb';
+      const img = document.createElement('img');
+      img.src = thumbFor(id);
+      img.alt = 'thumbnail';
+      thumb.appendChild(img);
+
+      // meta (title will be filled)
+      const meta = document.createElement('div');
+      meta.className = 'pl-meta';
+      const title = document.createElement('div');
+      title.className = 'pl-title';
+      title.textContent = 'Memuat...'; // placeholder
+      const sub = document.createElement('div');
+      sub.className = 'pl-sub';
+      sub.textContent = ''; // optional
+
+      meta.appendChild(title);
+      meta.appendChild(sub);
+
+      item.appendChild(thumb);
+      item.appendChild(meta);
+
+      // click -> load video
+      item.addEventListener('click', () => {
+        // load by id and focus
+        if (player && typeof player.loadVideoById === 'function'){
+          player.loadVideoById(id);
+          // set active class
+          document.querySelectorAll('.pl-item').forEach(x=>x.classList.remove('active'));
+          item.classList.add('active');
+          // scroll into view on small screens
+          item.scrollIntoView({behavior:'smooth', block:'center'});
+        }
+      });
+
+      container.appendChild(item);
+
+      // fetch title via oEmbed (no API key). If fails, use "Video {i+1}"
+      fetchOEmbedTitle(id).then(t=>{
+        title.textContent = t || `Video ${i+1}`;
+      }).catch(_=>{
+        title.textContent = `Video ${i+1}`;
+      });
+    }
+
+    // mark first as active
+    const first = container.querySelector('.pl-item');
+    if (first) first.classList.add('active');
+  }
+
+  // Fetch oEmbed JSON to get the video title (YouTube oembed supports CORS)
+  async function fetchOEmbedTitle(videoId){
+    const url = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`;
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('no oembed');
+      const j = await res.json();
+      return j.title;
+    } catch (e){
+      return null;
+    }
+  }
+
+  // Update active list item by id
+  function updateActiveItem(videoId){
+    if (!videoId) return;
+    document.querySelectorAll('.pl-item').forEach(el=>{
+      el.classList.toggle('active', el.dataset.videoId === videoId);
+    });
+  }
+
+  // If user navigates playlist controls inside the player, keep highlight in sync:
+  // Periodically poll getVideoData (safe fallback)
+  setInterval(()=>{
+    try {
+      if (player && typeof player.getVideoData === 'function'){
+        const data = player.getVideoData();
+        const vid = data && data.video_id;
+        if (vid) updateActiveItem(vid);
+      }
+    } catch(e){}
+  }, 800);
+
+  </script>
+</body>
+</html>
